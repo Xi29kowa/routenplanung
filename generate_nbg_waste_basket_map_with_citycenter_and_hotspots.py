@@ -157,6 +157,10 @@ function toggleLegend() {
 m.get_root().html.add_child(folium.Element(legend_html))
 
 
-# Karte speichern
-m.save(output_html)
-print(f"✅ Karte gespeichert: {output_html}")
+def generate_map_html():
+    # Deine komplette bestehende Logik bleibt wie sie ist.
+    # GANZ AM ENDE (anstelle von m.save(...)):
+
+    m.get_root().html.add_child(folium.Element(legend_html))
+    return m._repr_html_()
+
