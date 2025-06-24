@@ -1,17 +1,16 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-import folium
+from generate_nbg_waste_basket_map_with_citycenter_and_hotspots import generate_map_html
 
 app = FastAPI()
 
 @app.get("/", response_class=HTMLResponse)
-def home():
+def index():
     return """
-    <h1>🗺️ Willkommen bei deiner Routenplanungs-API</h1>
-    <p><a href="/map">Zur Karte →</a></p>
+    <h1>Routenplanung API</h1>
+    <p><a href="/map">Interaktive Karte öffnen →</a></p>
     """
 
 @app.get("/map", response_class=HTMLResponse)
-def get_map():
-    m = folium.Map(location=[49.4521, 11.0767], zoom_start=13)
-    return m._repr_html_()
+def show_map():
+    return generate_map_html()
