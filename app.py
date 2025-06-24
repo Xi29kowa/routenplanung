@@ -4,13 +4,12 @@ from generate_nbg_waste_basket_map_with_citycenter_and_hotspots import generate_
 
 app = FastAPI()
 
-@app.get("/", response_class=HTMLResponse)
-def index():
-    return """
-    <h1>Routenplanung API</h1>
-    <p><a href="/map">Interaktive Karte öffnen →</a></p>
-    """
+# Generiere Karte beim Start – einmalig
+print("🔄 Generiere Karte...")
+cached_map_html = generate_map_html()
+print("✅ Karte fertig.")
 
-@app.get("/map", response_class=HTMLResponse)
-def show_map():
-    return generate_map_html()
+# Liefere Karte direkt bei /
+@app.get("/", response_class=HTMLResponse)
+def map():
+    return cached_map_html
